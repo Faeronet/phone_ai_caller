@@ -1,0 +1,8 @@
+**/.DS_Store
+**/.git
+**/.cursor
+**/node_modules
+frontend
+postgres_data
+*.log
+

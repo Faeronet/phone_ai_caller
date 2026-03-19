@@ -1,0 +1,64 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "0.0.0.0:${PORT:-3000}:3000"
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+      - backend
+    networks:
+      - phone_ai_caller_net
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      ADMIN_SECRET_KEY: ${ADMIN_SECRET_KEY}
+      BACKEND_PORT: ${BACKEND_PORT:-8081}
+      ADMIN_COOKIE_NAME: ${ADMIN_COOKIE_NAME:-phone_ai_caller_admin}
+    ports:
+      - "0.0.0.0:${BACKEND_PORT:-8081}:8081"
+    depends_on:
+      - postgres
+    networks:
+      - phone_ai_caller_net
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "0.0.0.0:${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - phone_ai_caller_net
+    restart: unless-stopped
+
+  adminer:
+    image: adminer:4
+    ports:
+      - "0.0.0.0:${ADMINER_PORT:-8080}:8080"
+    depends_on:
+      - postgres
+    networks:
+      - phone_ai_caller_net
+    restart: unless-stopped
+
+networks:
+  phone_ai_caller_net:
+    driver: bridge
+
+volumes:
+  postgres_data:
+

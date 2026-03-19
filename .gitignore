@@ -1,0 +1,35 @@
+# --- Secrets / env ---
+.env
+.env.*
+
+# --- Editor / IDE ---
+.vscode/
+.idea/
+.cursor/
+
+# --- Node / Next ---
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/dist/
+frontend/build/
+frontend/.turbo/
+
+# --- Go ---
+backend/bin/
+backend/out/
+backend/backend
+backend/*.exe
+
+# --- Logs / misc ---
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# --- Local runtime data ---
+postgres_data/
+
+# --- Prisma artifacts (safe to ignore if present) ---
+frontend/prisma/migrations/
+

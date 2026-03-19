@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  @apply bg-slate-950 text-slate-100;
+}
+
+/* Subtle selection glow */
+::selection {
+  background: rgba(99, 102, 241, 0.25);
+}
+
+.font-script {
+  font-family: var(--font-great-vibes), cursive;
+}
+

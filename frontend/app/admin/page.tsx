@@ -1,0 +1,81 @@
+import { cookies } from "next/headers";
+import { Container } from "@/components/layout/Container";
+import { AdminUnlockForm } from "@/components/admin/AdminUnlockForm";
+import { AdminOrdersTable } from "@/components/admin/AdminOrdersTable";
+import { AdminProductForm } from "@/components/admin/AdminProductForm";
+import { BACKEND_API_BASE_URL } from "@/lib/backend";
+
+export default async function AdminPage() {
+  const cookieHeader = cookies().toString();
+
+  let authorized = false;
+  try {
+    const verifyRes = await fetch(`${BACKEND_API_BASE_URL}/api/admin/verify`, {
+      method: "GET",
+      headers: cookieHeader ? { cookie: cookieHeader } : undefined,
+      cache: "no-store"
+    });
+    authorized = verifyRes.ok;
+  } catch {
+    authorized = false;
+  }
+
+  if (!authorized) {
+    return (
+      <div className="relative">
+        <Container>
+          <div className="pt-10 pb-16">
+            <AdminUnlockForm />
+          </div>
+        </Container>
+      </div>
+    );
+  }
+
+  const ordersJson = await (async () => {
+    try {
+      const ordersRes = await fetch(`${BACKEND_API_BASE_URL}/api/admin/orders`, {
+        method: "GET",
+        headers: cookieHeader ? { cookie: cookieHeader } : undefined,
+        cache: "no-store"
+      });
+      return (await ordersRes.json().catch(() => ({}))) as { orders?: any[] };
+    } catch {
+      return {};
+    }
+  })();
+
+  const orders = ordersJson.orders ?? [];
+
+  return (
+    <div className="relative">
+      <Container>
+        <div className="pt-10 pb-16 space-y-6">
+          <div className="rounded-3xl bg-slate-900/60 p-6 ring-1 ring-white/10 shadow-soft">
+            <h1 className="text-2xl font-extrabold text-white">Админка</h1>
+            <p className="mt-2 text-sm text-slate-300">
+              Управляйте статусами заказов и создавайте новые товары.
+            </p>
+          </div>
+
+          <div className="grid gap-5 lg:grid-cols-[1fr_390px]">
+            <section className="space-y-3">
+              <div className="rounded-3xl bg-slate-900/60 p-5 ring-1 ring-white/10 shadow-soft">
+                <h2 className="text-lg font-extrabold text-white">Заказы</h2>
+                <p className="mt-1 text-sm text-slate-300">
+                  {orders.length ? `Найдено: ${orders.length}` : "Пока нет заказов"}
+                </p>
+              </div>
+              {orders.length ? <AdminOrdersTable orders={orders as any} /> : null}
+            </section>
+
+            <aside className="space-y-5">
+              <AdminProductForm />
+            </aside>
+          </div>
+        </div>
+      </Container>
+    </div>
+  );
+}
+
