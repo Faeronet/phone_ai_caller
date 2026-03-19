@@ -47,40 +47,47 @@ export function AdminOrdersTable({ orders }: { orders: OrderView[] }) {
           <table className="w-full table-auto text-left text-sm">
             <thead>
               <tr className="border-b border-white/10">
-                <th className="px-4 py-3 w-[88px] font-semibold text-slate-300">ID</th>
-                <th className="px-4 py-3 w-[160px] font-semibold text-slate-300">Имя</th>
-                <th className="px-4 py-3 w-[150px] font-semibold text-slate-300">Телефон</th>
+                <th className="px-3 py-2.5 w-[82px] font-semibold text-slate-300">ID</th>
+                <th className="px-3 py-2.5 w-[145px] font-semibold text-slate-300">Имя</th>
+                <th className="px-3 py-2.5 w-[145px] font-semibold text-slate-300">Телефон</th>
                 <th className="px-4 py-3 font-semibold text-slate-300">Товары</th>
-                <th className="px-4 py-3 w-[90px] font-semibold text-slate-300">Кол-во</th>
-                <th className="px-4 py-3 w-[120px] font-semibold text-slate-300">Итого</th>
-                <th className="px-4 py-3 w-[210px] font-semibold text-slate-300">Статус</th>
-                <th className="px-4 py-3 w-[160px] font-semibold text-slate-300">Дата</th>
-                <th className="px-4 py-3 w-[132px] font-semibold text-slate-300">Удалить</th>
+                <th className="px-3 py-2.5 w-[84px] font-semibold text-slate-300">Кол-во</th>
+                <th className="px-3 py-2.5 w-[116px] font-semibold text-slate-300">Итого</th>
+                <th className="px-3 py-2.5 w-[196px] font-semibold text-slate-300">Статус</th>
+                <th className="px-3 py-2.5 w-[150px] font-semibold text-slate-300">Дата</th>
+                <th className="px-3 py-2.5 w-[122px] font-semibold text-slate-300">Удалить</th>
               </tr>
             </thead>
             <tbody>
               {orders.map((o) => {
                 const totalQty = o.items.reduce((sum, i) => sum + i.quantity, 0);
-                const itemsText = o.items.map((i) => `${i.productNameSnapshot} × ${i.quantity}`).join(", ");
                 return (
                   <tr key={o.id} className="border-b border-white/5 align-top">
-                    <td className="px-4 py-3 text-slate-200">
+                    <td className="px-3 py-2.5 text-slate-200">
                       <div className="font-semibold text-white">#{o.id}</div>
                     </td>
-                    <td className="px-4 py-3 text-slate-200 align-top">
+                    <td className="px-3 py-2.5 text-slate-200 align-top">
                       <div className="whitespace-normal break-words">{o.customerName}</div>
                     </td>
-                    <td className="px-4 py-3 text-slate-200 whitespace-nowrap align-top">{o.phone}</td>
-                    <td className="px-4 py-3 text-slate-200 align-top">
-                      <div className="max-w-none whitespace-normal break-normal leading-relaxed">
-                        {itemsText}
-                      </div>
+                    <td className="px-3 py-2.5 text-slate-200 whitespace-nowrap align-top">{o.phone}</td>
+                    <td className="px-4 py-2.5 text-slate-200 align-top">
+                      <ul className="space-y-1">
+                        {o.items.map((item, idx) => (
+                          <li key={`${o.id}-${idx}`} className="flex items-start gap-2 text-[13px] leading-5">
+                            <span className="mt-[7px] inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-brand-300/80" />
+                            <span className="min-w-0">
+                              <span className="break-words">{item.productNameSnapshot}</span>
+                              <span className="ml-1 whitespace-nowrap text-slate-300">× {item.quantity}</span>
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
                     </td>
-                    <td className="px-4 py-3 text-slate-200">{totalQty}</td>
-                    <td className="px-4 py-3 font-extrabold text-white">{formatByn(o.totalAmount)}</td>
-                    <td className="px-4 py-3">
+                    <td className="px-3 py-2.5 text-slate-200">{totalQty}</td>
+                    <td className="px-3 py-2.5 font-extrabold text-white">{formatByn(o.totalAmount)}</td>
+                    <td className="px-3 py-2.5">
                       <div className="flex items-center gap-2">
-                        <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-white/5 ring-1 ring-white/10">
+                        <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white/5 ring-1 ring-white/10">
                           {o.confirmationStatus === "подтверждено" ? (
                             <AppIcon icon={BadgeCheck} size="sm" strokeWidth={2.5} className="text-brand-200" />
                           ) : (
@@ -107,7 +114,7 @@ export function AdminOrdersTable({ orders }: { orders: OrderView[] }) {
                             }
                           }}
                           disabled={updatingId === o.id}
-                          className="h-10 w-full min-w-[150px] rounded-2xl bg-white/5 px-3 text-sm text-white outline-none ring-1 ring-white/10 focus:ring-brand-400/40 disabled:opacity-70"
+                          className="h-9 w-full min-w-[142px] rounded-xl bg-white/5 px-2.5 text-sm text-white outline-none ring-1 ring-white/10 focus:ring-brand-400/40 disabled:opacity-70"
                         >
                           {Object.keys(statusLabels).map((s) => (
                             <option key={s} value={s}>
@@ -117,10 +124,10 @@ export function AdminOrdersTable({ orders }: { orders: OrderView[] }) {
                         </select>
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-slate-200">
+                    <td className="px-3 py-2.5 text-slate-200">
                       <div className="whitespace-nowrap">{new Date(o.createdAt).toLocaleString("ru-RU")}</div>
                     </td>
-                    <td className="px-4 py-3">
+                    <td className="px-3 py-2.5">
                       <Button
                         variant="secondary"
                         size="sm"
@@ -129,7 +136,7 @@ export function AdminOrdersTable({ orders }: { orders: OrderView[] }) {
                           setConfirmId(o.id);
                         }}
                         disabled={deleteBusyId === o.id}
-                        className="gap-2 rounded-2xl bg-white/5 hover:bg-white/10"
+                        className="gap-1.5 rounded-xl bg-white/5 px-2.5 hover:bg-white/10"
                       >
                         <AppIcon icon={Trash2} size="sm" strokeWidth={2.5} />
                         Удалить
