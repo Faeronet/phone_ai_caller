@@ -7,8 +7,8 @@ import { AppIcon } from "@/components/ui/AppIcon";
 import { ArrowRight, Bot, PhoneCall, Receipt, ShieldCheck, Sparkles, PackageCheck, ShoppingBag } from "lucide-react";
 
 const devs = [
-  { name: "Виктор", rolesText: "PM (Product Manager), AI Engineer" },
-  { name: "Евгений", rolesText: "Team Lead, AI Engineer" },
+  { name: "Виктор", rolesText: "PM, AI Engineer" },
+  { name: "Евгений", rolesText: "TL, AI Engineer" },
   { name: "Андрей", rolesText: "AI Engineer" },
   { name: "Дмитрий", rolesText: "AI Engineer" }
 ];

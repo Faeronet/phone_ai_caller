@@ -16,7 +16,7 @@ export function SiteFooter() {
             <div className="flex items-start justify-between gap-4 rounded-2xl bg-white/5 p-3 ring-1 ring-white/10">
               <div className="min-w-0">
                 <div className="truncate text-sm font-extrabold text-white">Виктор</div>
-                <div className="text-xs font-semibold text-slate-300">PM (Product Manager), AI Engineer</div>
+                <div className="text-xs font-semibold text-slate-300">PM, AI Engineer</div>
               </div>
               <AppIcon icon={Sparkles} size="sm" strokeWidth={2.5} className="mt-1 text-brand-200 shrink-0" />
             </div>
@@ -24,7 +24,7 @@ export function SiteFooter() {
             <div className="flex items-start justify-between gap-4 rounded-2xl bg-white/5 p-3 ring-1 ring-white/10">
               <div className="min-w-0">
                 <div className="truncate text-sm font-extrabold text-white">Евгений</div>
-                <div className="text-xs font-semibold text-slate-300">Team Lead, AI Engineer</div>
+                <div className="text-xs font-semibold text-slate-300">TL, AI Engineer</div>
               </div>
               <span className="mt-1 inline-flex h-7 w-7 items-center justify-center rounded-2xl bg-brand-600/20 ring-1 ring-brand-400/25 text-brand-200 text-xs font-extrabold">
                 TL
