@@ -32,13 +32,13 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ru" className={`dark ${roboto.variable} ${greatVibes.variable}`}>
-      <body className="font-sans">
+      <body className="font-sans min-h-screen flex flex-col">
         <ToastProvider>
           <SiteHeader />
-          <main className="pt-16">
+          <main className="flex-1 pt-16">
             {children}
-            <SiteFooter />
           </main>
+          <SiteFooter />
         </ToastProvider>
       </body>
     </html>

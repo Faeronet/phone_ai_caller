@@ -41,9 +41,7 @@ func createTables(ctx context.Context, pool *pgxpool.Pool) error {
 			"productNameSnapshot" TEXT NOT NULL,
 			"priceSnapshot" INTEGER NOT NULL,
 			"quantity" INTEGER NOT NULL,
-			CONSTRAINT "OrderItem_orderId_fkey" FOREIGN KEY ("orderId") REFERENCES "Order"(id) ON DELETE CASCADE,
-			-- productId специально без внешнего ключа:
-			-- удаление товара не должно ломать историю заказов (snapshots хранятся в OrderItem).
+			CONSTRAINT "OrderItem_orderId_fkey" FOREIGN KEY ("orderId") REFERENCES "Order"(id) ON DELETE CASCADE
 		);`,
 		`CREATE INDEX IF NOT EXISTS "OrderItem_orderId_idx" ON "OrderItem"("orderId");`,
 	}

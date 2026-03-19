@@ -11,12 +11,14 @@ export function QuantityStepper({
   min = 1,
   max = 99,
   onChange,
+  disabled = false,
   className
 }: {
   value: number;
   min?: number;
   max?: number;
   onChange: (next: number) => void;
+  disabled?: boolean;
   className?: string;
 }) {
   return (
@@ -26,25 +28,30 @@ export function QuantityStepper({
         size="sm"
         className="h-9 w-9 px-0"
         onClick={() => onChange(Math.max(min, value - 1))}
-        disabled={value <= min}
+        disabled={disabled || value <= min}
         type="button"
       >
         <AppIcon icon={Minus} size="sm" />
       </Button>
       <input
-        className="w-14 rounded-xl bg-transparent text-center text-sm font-semibold text-white outline-none"
+        className="w-14 rounded-xl bg-transparent text-center text-sm font-semibold text-white outline-none disabled:cursor-not-allowed disabled:opacity-60"
         type="number"
         min={min}
         max={max}
         value={value}
-        onChange={(e) => onChange(Math.max(min, Math.min(max, Number(e.target.value || min))))}
+        disabled={disabled}
+        onChange={(e) => {
+          if (disabled) return;
+          const nextNum = Number(e.target.value || min);
+          onChange(Math.max(min, Math.min(max, nextNum)));
+        }}
       />
       <Button
         variant="ghost"
         size="sm"
         className="h-9 w-9 px-0"
         onClick={() => onChange(Math.min(max, value + 1))}
-        disabled={value >= max}
+        disabled={disabled || value >= max}
         type="button"
       >
         <AppIcon icon={Plus} size="sm" />

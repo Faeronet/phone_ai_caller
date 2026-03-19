@@ -5,7 +5,7 @@ import { Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Modal } from "@/components/ui/Modal";
 import { AppIcon } from "@/components/ui/AppIcon";
-import { formatRub } from "@/lib/money";
+import { formatByn } from "@/lib/money";
 
 type AdminProduct = {
   id: number;
@@ -72,7 +72,7 @@ export function AdminProductsList() {
               <img src={p.imageUrl} alt={p.name} className="h-14 w-14 rounded-2xl object-cover ring-1 ring-white/10" />
               <div className="min-w-0 flex-1">
                 <div className="truncate text-sm font-bold text-white">{p.name}</div>
-                <div className="mt-1 text-xs text-slate-300">{formatRub(p.priceCents)}</div>
+                <div className="mt-1 text-xs text-slate-300">{formatByn(p.priceCents)}</div>
                 <div className="mt-1 text-[11px] text-slate-500">
                   {p.createdAt ? new Date(p.createdAt).toLocaleString("ru-RU") : ""}
                 </div>

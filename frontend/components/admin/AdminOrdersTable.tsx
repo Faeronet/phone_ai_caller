@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import { Table, Th, Td } from "@/components/ui/Table";
-import { formatRub } from "@/lib/money";
+import { formatByn } from "@/lib/money";
 import { AppIcon } from "@/components/ui/AppIcon";
 import { BadgeCheck, CircleDashed } from "lucide-react";
 
@@ -58,7 +58,7 @@ export function AdminOrdersTable({ orders }: { orders: OrderView[] }) {
               <Td>{o.phone}</Td>
               <Td className="max-w-[260px] break-words">{itemsText}</Td>
               <Td>{totalQty}</Td>
-              <Td className="font-extrabold text-white">{formatRub(o.totalAmount)}</Td>
+              <Td className="font-extrabold text-white">{formatByn(o.totalAmount)}</Td>
               <Td>
                 <div className="flex items-center gap-2">
                   <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-white/5 ring-1 ring-white/10">

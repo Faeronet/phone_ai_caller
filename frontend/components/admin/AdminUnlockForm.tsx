@@ -6,7 +6,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/Button";
 import { AppIcon } from "@/components/ui/AppIcon";
-import { KeyRound, Lock } from "lucide-react";
+import { Eye, EyeOff, KeyRound, Lock } from "lucide-react";
 
 const schema = z.object({
   key: z.string().min(1, "Ключ обязателен")
@@ -17,6 +17,7 @@ type Values = z.infer<typeof schema>;
 export function AdminUnlockForm({ onUnlocked }: { onUnlocked?: () => void }) {
   const [error, setError] = React.useState<string | null>(null);
   const [loading, setLoading] = React.useState(false);
+  const [showKey, setShowKey] = React.useState(false);
 
   const { register, handleSubmit, formState, reset } = useForm<Values>({
     resolver: zodResolver(schema),
@@ -71,13 +72,25 @@ export function AdminUnlockForm({ onUnlocked }: { onUnlocked?: () => void }) {
                 Secret key
               </span>
             </label>
-            <input
-              id="key"
-              className="h-11 w-full rounded-2xl bg-white/5 px-3 text-sm text-white outline-none ring-1 ring-white/10 placeholder:text-slate-500 focus:ring-brand-400/40"
-              placeholder="Введите ключ"
-              {...register("key")}
-              disabled={loading}
-            />
+            <div className="relative">
+              <input
+                id="key"
+                type={showKey ? "text" : "password"}
+                className="h-11 w-full rounded-2xl bg-white/5 px-3 pr-11 text-sm text-white outline-none ring-1 ring-white/10 placeholder:text-slate-500 focus:ring-brand-400/40 disabled:opacity-70"
+                placeholder="Введите ключ"
+                {...register("key")}
+                disabled={loading}
+              />
+              <button
+                type="button"
+                aria-label={showKey ? "Скрыть ключ" : "Показать ключ"}
+                className="absolute inset-y-0 right-2 flex items-center rounded-2xl p-2 text-slate-300 ring-1 ring-white/10 hover:bg-white/5"
+                onClick={() => setShowKey((v) => !v)}
+                disabled={loading}
+              >
+                <AppIcon icon={showKey ? EyeOff : Eye} size="sm" />
+              </button>
+            </div>
             {formState.errors.key ? <p className="text-xs font-semibold text-red-300">{formState.errors.key.message}</p> : null}
           </div>
 

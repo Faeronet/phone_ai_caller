@@ -123,7 +123,7 @@ export function AdminProductForm() {
 
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-2">
-            <label className="block text-sm font-semibold text-slate-200">Цена (руб.)</label>
+            <label className="block text-sm font-semibold text-slate-200">Цена (BYN)</label>
             <input
               className="h-11 w-full rounded-2xl bg-white/5 px-3 text-sm text-white outline-none ring-1 ring-white/10 placeholder:text-slate-500 focus:ring-brand-400/40"
               placeholder="Например, 1990"

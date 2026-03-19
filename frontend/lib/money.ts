@@ -1,13 +1,18 @@
-export function centsToRub(amountCents: number) {
-  return amountCents / 100;
+const centsToUnits = (amountCents: number) => amountCents / 100;
+
+const bynFormatter = new Intl.NumberFormat("be-BY", {
+  style: "currency",
+  currency: "BYN",
+  maximumFractionDigits: 0
+});
+
+export function formatByn(amountCents: number) {
+  return bynFormatter.format(centsToUnits(amountCents));
 }
 
+// Backward-compatible alias for existing imports.
 export function formatRub(amountCents: number) {
-  return new Intl.NumberFormat("ru-RU", {
-    style: "currency",
-    currency: "RUB",
-    maximumFractionDigits: 0
-  }).format(centsToRub(amountCents));
+  return formatByn(amountCents);
 }
 
 export function rubToCentsFromInput(value: string) {

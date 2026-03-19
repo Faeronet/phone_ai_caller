@@ -4,23 +4,32 @@ import * as React from "react";
 import type { CartItem } from "@/store/cartStore";
 import { QuantityStepper } from "@/components/ui/QuantityStepper";
 import { Button } from "@/components/ui/Button";
-import { formatRub } from "@/lib/money";
+import { formatByn } from "@/lib/money";
+import { twMerge } from "tailwind-merge";
 import { Trash2 } from "lucide-react";
 import { AppIcon } from "@/components/ui/AppIcon";
 
 export function CartItemCard({
   item,
   onQuantityChange,
-  onRemove
+  onRemove,
+  available
 }: {
   item: CartItem;
   onQuantityChange: (next: number) => void;
   onRemove: () => void;
+  available: boolean;
 }) {
   const lineTotal = item.priceCents * item.quantity;
+  const isOutOfStock = !available;
 
   return (
-    <div className="group rounded-3xl bg-slate-900/60 p-4 ring-1 ring-white/10 shadow-soft transition-all hover:-translate-y-0.5 hover:ring-brand-400/20">
+    <div
+      className={twMerge(
+        "group rounded-3xl bg-slate-900/60 p-4 ring-1 ring-white/10 shadow-soft transition-all hover:-translate-y-0.5 hover:ring-brand-400/20",
+        isOutOfStock ? "opacity-60 hover:-translate-y-0 hover:ring-white/10" : ""
+      )}
+    >
       <div className="flex items-start gap-4">
         <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-2xl bg-white/5 ring-1 ring-white/10">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -31,7 +40,16 @@ export function CartItemCard({
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0">
               <div className="truncate text-sm font-bold text-white">{item.name}</div>
-              <div className="mt-1 text-xs text-slate-400">Цена за штуку: {formatRub(item.priceCents)}</div>
+              <div className="mt-1 flex flex-wrap items-center gap-2">
+                {isOutOfStock ? (
+                  <span className="rounded-2xl bg-white/5 px-2 py-0.5 text-xs font-semibold text-slate-200 ring-1 ring-white/10">
+                    Нет в наличии
+                  </span>
+                ) : null}
+                <div className={isOutOfStock ? "text-xs text-slate-500" : "text-xs text-slate-400"}>
+                  Цена за штуку: {formatByn(item.priceCents)}
+                </div>
+              </div>
             </div>
           </div>
 
@@ -42,11 +60,12 @@ export function CartItemCard({
                 min={1}
                 max={20}
                 onChange={onQuantityChange}
+                disabled={isOutOfStock}
               />
             </div>
             <div className="text-right">
               <div className="text-xs text-slate-400">Сумма по позиции</div>
-              <div className="text-sm font-extrabold text-white">{formatRub(lineTotal)}</div>
+              <div className="text-sm font-extrabold text-white">{formatByn(lineTotal)}</div>
             </div>
           </div>
         </div>

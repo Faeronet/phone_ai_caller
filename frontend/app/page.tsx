@@ -7,10 +7,10 @@ import { AppIcon } from "@/components/ui/AppIcon";
 import { ArrowRight, Bot, PhoneCall, Receipt, ShieldCheck, Sparkles, PackageCheck, ShoppingBag } from "lucide-react";
 
 const devs = [
-  { name: "Виктор", role: "PM" },
-  { name: "Евгений", role: "Team Lead" },
-  { name: "Андрей", role: "AI Engineer" },
-  { name: "Дмитрий", role: "AI Engineer" }
+  { name: "Виктор", rolesText: "PM (Product Manager), AI Engineer" },
+  { name: "Евгений", rolesText: "Team Lead, AI Engineer" },
+  { name: "Андрей", rolesText: "AI Engineer" },
+  { name: "Дмитрий", rolesText: "AI Engineer" }
 ];
 
 export default function HomePage() {
@@ -204,11 +204,11 @@ export default function HomePage() {
                   <span className="inline-flex items-center justify-center rounded-2xl bg-white/5 px-3 py-2 ring-1 ring-white/10">
                     <span className="text-xs font-extrabold text-brand-200 inline-flex items-center gap-2">
                       <AppIcon icon={Sparkles} size="sm" strokeWidth={2.5} />
-                      {d.role}
+                      {d.rolesText}
                     </span>
                   </span>
                 </div>
-                <p className="mt-2 text-sm text-slate-300">Команда AI-направления</p>
+                <p className="mt-2 text-sm text-slate-300">AI-направление</p>
               </motion.div>
             ))}
           </div>

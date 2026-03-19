@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/Button";
 import { Modal } from "@/components/ui/Modal";
 import { QuantityStepper } from "@/components/ui/QuantityStepper";
-import { formatRub } from "@/lib/money";
+import { formatByn } from "@/lib/money";
 import { AppIcon } from "@/components/ui/AppIcon";
 import { CheckCircle2, Phone, User, Package } from "lucide-react";
 import { useToast } from "@/components/toast/ToastProvider";
@@ -124,7 +124,7 @@ export function OneClickOrderModal({
             <img src={product.imageUrl} alt={product.name} className="h-14 w-14 rounded-2xl object-cover" />
             <div className="min-w-0">
               <div className="truncate text-sm font-bold text-white">{product.name}</div>
-              <div className="mt-1 text-sm text-slate-300">Итого: {formatRub(totalCents)}</div>
+              <div className="mt-1 text-sm text-slate-300">Итого: {formatByn(totalCents)}</div>
             </div>
           </div>
         </div>
@@ -290,7 +290,7 @@ export function CartCheckoutModal({
         <div className="rounded-3xl bg-slate-900/60 p-4 ring-1 ring-white/10">
           <div className="flex items-center justify-between gap-3">
             <div className="text-sm font-bold text-white">Сумма к оплате</div>
-            <div className="text-sm font-extrabold text-white">{formatRub(cartTotalCents)}</div>
+            <div className="text-sm font-extrabold text-white">{formatByn(cartTotalCents)}</div>
           </div>
           <div className="mt-2 text-xs text-slate-400">Количество берётся из корзины автоматически.</div>
         </div>

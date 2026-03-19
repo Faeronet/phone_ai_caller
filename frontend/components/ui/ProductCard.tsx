@@ -5,6 +5,7 @@ import { Button } from "./Button";
 import { Badge } from "./Badge";
 import { AppIcon } from "./AppIcon";
 import { ArrowRight, PhoneCall, ShieldCheck, ShoppingCart, Sparkles } from "lucide-react";
+import { formatByn } from "@/lib/money";
 
 export type ProductView = {
   id: number;
@@ -52,7 +53,7 @@ export function ProductCard({
         <div className="mt-4 flex items-center justify-between gap-4">
           <div className="text-sm font-semibold text-white">
             <span className="text-slate-400">Цена: </span>
-            <span>{new Intl.NumberFormat("ru-RU", { style: "currency", currency: "RUB", maximumFractionDigits: 0 }).format(product.priceCents / 100)}</span>
+            <span>{formatByn(product.priceCents)}</span>
           </div>
         </div>
 
