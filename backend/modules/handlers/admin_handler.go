@@ -102,7 +102,8 @@ func (h AdminHandler) Unlock(w http.ResponseWriter, r *http.Request) {
 		_ = writeError(w, http.StatusBadRequest, "Invalid JSON")
 		return
 	}
-	if req.Key == "" || req.Key != h.Cfg.AdminSecretKey {
+	key := strings.TrimSpace(req.Key)
+	if key == "" || key != h.Cfg.AdminSecretKey {
 		_ = writeError(w, http.StatusUnauthorized, "Неверный ключ")
 		return
 	}

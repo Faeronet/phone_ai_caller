@@ -3,6 +3,7 @@ package config
 import (
 	"fmt"
 	"os"
+	"strings"
 )
 
 type Config struct {
@@ -19,7 +20,7 @@ func Load() (Config, error) {
 	if dbURL == "" {
 		return Config{}, fmt.Errorf("DATABASE_URL is required")
 	}
-	secret := os.Getenv("ADMIN_SECRET_KEY")
+	secret := strings.TrimSpace(os.Getenv("ADMIN_SECRET_KEY"))
 	if secret == "" {
 		return Config{}, fmt.Errorf("ADMIN_SECRET_KEY is required")
 	}
