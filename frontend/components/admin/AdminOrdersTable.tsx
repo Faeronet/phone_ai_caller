@@ -177,7 +177,7 @@ export function AdminOrdersTable({ orders }: { orders: OrderView[] }) {
                     if (!res.ok) throw new Error(data?.message || "Не удалось удалить заказ");
 
                     setConfirmId(null);
-                    pushToast("Заказ удалён");
+                    pushToast("Заказ удалён", 3000);
                     router.refresh();
                   } catch (e) {
                     setDeleteError(e instanceof Error ? e.message : "Не удалось удалить заказ");

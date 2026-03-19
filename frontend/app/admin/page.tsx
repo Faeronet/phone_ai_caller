@@ -59,8 +59,8 @@ export default async function AdminPage() {
             </p>
           </div>
 
-          <div className="grid gap-5 lg:grid-cols-[1fr_390px]">
-            <section className="space-y-3">
+          <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,390px)]">
+            <section className="min-w-0 space-y-3">
               <div className="rounded-3xl bg-slate-900/60 p-5 ring-1 ring-white/10 shadow-soft">
                 <h2 className="text-lg font-extrabold text-white">Заказы</h2>
                 <p className="mt-1 text-sm text-slate-300">
@@ -70,7 +70,7 @@ export default async function AdminPage() {
               {orders.length ? <AdminOrdersTable orders={orders as any} /> : null}
             </section>
 
-            <aside className="space-y-5">
+            <aside className="min-w-0 space-y-5">
               <AdminProductForm />
               <AdminProductsList />
             </aside>

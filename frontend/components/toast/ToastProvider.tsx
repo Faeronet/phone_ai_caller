@@ -11,7 +11,7 @@ type Toast = {
 };
 
 const ToastContext = React.createContext<{
-  pushToast: (message: string) => void;
+  pushToast: (message: string, durationMs?: number) => void;
 } | null>(null);
 
 const TOAST_DURATION_MS = 60_000;
@@ -28,13 +28,14 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
   const [toasts, setToasts] = React.useState<Toast[]>([]);
   const makeId = useStableId();
 
-  const pushToast = React.useCallback((message: string) => {
+  const pushToast = React.useCallback((message: string, durationMs?: number) => {
     const id = makeId();
     setToasts((prev) => [...prev, { id, message }]);
 
+    const ttl = typeof durationMs === "number" && durationMs > 0 ? durationMs : TOAST_DURATION_MS;
     window.setTimeout(() => {
       setToasts((prev) => prev.filter((t) => t.id !== id));
-    }, TOAST_DURATION_MS);
+    }, ttl);
   }, [makeId]);
 
   return (

@@ -44,7 +44,7 @@ export function Modal({
         >
           <div className="absolute inset-0 bg-slate-950/75 backdrop-blur-sm" />
           <motion.div
-            className="relative w-full max-w-lg rounded-3xl bg-slate-900/95 p-5 ring-1 ring-white/10 shadow-soft"
+            className="relative w-full max-h-[calc(100vh-2rem)] max-w-lg overflow-y-auto rounded-3xl bg-slate-900/95 p-5 ring-1 ring-white/10 shadow-soft"
             initial={{ scale: 0.98, y: 8, opacity: 0 }}
             animate={{ scale: 1, y: 0, opacity: 1 }}
             exit={{ scale: 0.98, y: 8, opacity: 0 }}

@@ -12,11 +12,15 @@ import { AppIcon } from "@/components/ui/AppIcon";
 import { CheckCircle2, Phone, User, Package } from "lucide-react";
 import { useToast } from "@/components/toast/ToastProvider";
 
-const phoneRegex = /^[0-9+()\\s-]{7,}$/;
+import { BY_PHONE_ERROR_MESSAGE, normalizeBelarusMobilePhone, isValidBelarusMobilePhone } from "@/lib/byPhone";
 
 const baseSchema = z.object({
   customerName: z.string().min(1, "Имя обязательно"),
-  phone: z.string().min(1, "Телефон обязателен").regex(phoneRegex, "Проверьте номер телефона")
+  phone: z
+    .string()
+    .min(1, "Телефон обязателен")
+    .transform((v) => normalizeBelarusMobilePhone(v) ?? "")
+    .refine((v) => !!v && isValidBelarusMobilePhone(v), BY_PHONE_ERROR_MESSAGE),
 });
 
 type BaseValues = z.infer<typeof baseSchema>;
@@ -158,7 +162,7 @@ export function OneClickOrderModal({
           <input
             id="phone"
             className="h-11 w-full rounded-2xl bg-white/5 px-3 text-sm text-white outline-none ring-1 ring-white/10 placeholder:text-slate-500 focus:ring-brand-400/40"
-            placeholder="+7 (999) 123-45-67"
+            placeholder="+37529 123-45-67"
             {...register("phone")}
             disabled={status === "loading"}
           />
@@ -324,7 +328,7 @@ export function CartCheckoutModal({
           <input
             id="phone"
             className="h-11 w-full rounded-2xl bg-white/5 px-3 text-sm text-white outline-none ring-1 ring-white/10 placeholder:text-slate-500 focus:ring-brand-400/40"
-            placeholder="+7 (999) 123-45-67"
+            placeholder="+37529 123-45-67"
             {...register("phone")}
             disabled={status === "loading"}
           />

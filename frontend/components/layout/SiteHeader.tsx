@@ -22,12 +22,18 @@ export function SiteHeader({ className }: { className?: string }) {
   const pathname = usePathname();
   const { totalQuantity: cartCount } = useCartTotals();
 
+  const isShop = pathname?.startsWith("/shop");
+  const isCart = pathname?.startsWith("/cart");
+  const isAdmin = pathname?.startsWith("/admin");
+
+  const showShopButton = isAdmin || isCart;
+
   const label = React.useMemo(() => {
-    if (pathname?.startsWith("/shop")) return "Phone AI Caller • Shop";
-    if (pathname?.startsWith("/cart")) return "Phone AI Caller • Cart";
-    if (pathname?.startsWith("/admin")) return "Phone AI Caller • Admin";
+    if (isShop) return "Phone AI Caller • Shop";
+    if (isCart) return "Phone AI Caller • Cart";
+    if (isAdmin) return "Phone AI Caller • Admin";
     return "Phone AI Caller";
-  }, [pathname]);
+  }, [isShop, isCart, isAdmin]);
 
   return (
     <header
@@ -36,21 +42,37 @@ export function SiteHeader({ className }: { className?: string }) {
         className
       )}
     >
-      <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="text-base font-extrabold tracking-tight text-white">
-          <span className="inline-flex items-center gap-2">
-            <AppIcon icon={PhoneCall} size="sm" strokeWidth={2.5} className="text-brand-200" />
-            {label}
-          </span>
-        </Link>
+      <div className="mx-auto flex h-full max-w-6xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
+        <div className="flex min-w-0 items-center gap-3">
+          <Link
+            href="/"
+            className="max-w-[60vw] truncate text-base font-extrabold tracking-tight text-white sm:max-w-none"
+          >
+            <span className="inline-flex items-center gap-2">
+              <AppIcon icon={PhoneCall} size="sm" strokeWidth={2.5} className="text-brand-200" />
+              {label}
+            </span>
+          </Link>
+
+          {showShopButton ? (
+            <Link href="/shop" className="group">
+              <Button variant="secondary" className="h-10 gap-2 px-3">
+                <span className="inline-flex items-center gap-2">
+                  <AppIcon icon={ShoppingBag} size="sm" strokeWidth={2.5} />
+                  <span className="hidden sm:inline">Магазин</span>
+                </span>
+              </Button>
+            </Link>
+          ) : null}
+        </div>
 
         <div className="flex items-center gap-3">
-          {pathname?.startsWith("/shop") || pathname?.startsWith("/cart") || pathname?.startsWith("/admin") ? (
+          {isShop || isCart || isAdmin ? (
             <Link href="/cart" className="group">
               <Button variant="secondary" className="h-10">
                 <span className="inline-flex items-center gap-2">
                   <AppIcon icon={ShoppingCart} size="sm" strokeWidth={2.5} />
-                  Корзина
+                  <span className="hidden sm:inline-flex">Корзина</span>
                 </span>
                 <CartCountPill count={cartCount} />
               </Button>

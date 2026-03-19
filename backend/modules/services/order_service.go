@@ -6,6 +6,7 @@ import (
 
 	"phone-ai-caller-backend/modules/models"
 	"phone-ai-caller-backend/modules/repositories"
+	"phone-ai-caller-backend/modules/validators"
 )
 
 type OrderService struct {
@@ -22,13 +23,14 @@ func (s OrderService) CreateOrder(ctx context.Context, customerName, phone strin
 	if customerName == "" {
 		return 0, fmt.Errorf("customerName required")
 	}
-	if len(phone) < 7 {
-		return 0, fmt.Errorf("phone required")
+	normalizedPhone, err := validators.NormalizeBelarusMobilePhone(phone)
+	if err != nil {
+		return 0, err
 	}
 	if len(items) == 0 {
 		return 0, fmt.Errorf("items required")
 	}
-	return s.Repo.CreateOrder(ctx, customerName, phone, items)
+	return s.Repo.CreateOrder(ctx, customerName, normalizedPhone, items)
 }
 
 func (s OrderService) ListAdminOrders(ctx context.Context) ([]models.Order, error) {
