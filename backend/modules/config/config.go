@@ -10,6 +10,7 @@ type Config struct {
 	DatabaseURL    string
 	AdminSecretKey string
 	CookieName     string
+	UploadDir      string
 }
 
 func Load() (Config, error) {
@@ -24,12 +25,14 @@ func Load() (Config, error) {
 	}
 
 	cookieName := envOrDefault("ADMIN_COOKIE_NAME", "phone_ai_caller_admin")
+	uploadDir := envOrDefault("UPLOAD_DIR", "/app/uploads")
 
 	return Config{
 		Port:            port,
 		DatabaseURL:    dbURL,
 		AdminSecretKey: secret,
 		CookieName:     cookieName,
+		UploadDir:      uploadDir,
 	}, nil
 }
 

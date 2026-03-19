@@ -3,6 +3,7 @@ import { Container } from "@/components/layout/Container";
 import { AdminUnlockForm } from "@/components/admin/AdminUnlockForm";
 import { AdminOrdersTable } from "@/components/admin/AdminOrdersTable";
 import { AdminProductForm } from "@/components/admin/AdminProductForm";
+import { AdminProductsList } from "@/components/admin/AdminProductsList";
 import { BACKEND_API_BASE_URL } from "@/lib/backend";
 
 export default async function AdminPage() {
@@ -71,6 +72,7 @@ export default async function AdminPage() {
 
             <aside className="space-y-5">
               <AdminProductForm />
+              <AdminProductsList />
             </aside>
           </div>
         </div>

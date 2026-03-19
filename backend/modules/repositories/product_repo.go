@@ -64,6 +64,18 @@ func (r ProductRepository) Create(ctx context.Context, name, description string,
 	return id, nil
 }
 
+func (r ProductRepository) DeleteByID(ctx context.Context, id int) (string, error) {
+	var imageUrl string
+	if err := r.Pool.QueryRow(ctx, `
+		DELETE FROM "Product"
+		WHERE id = $1
+		RETURNING "imageUrl"
+	`, id).Scan(&imageUrl); err != nil {
+		return "", fmt.Errorf("delete product: %w", err)
+	}
+	return imageUrl, nil
+}
+
 func NewProductRepository(pool *pgxpool.Pool) ProductRepository {
 	return ProductRepository{Pool: pool}
 }

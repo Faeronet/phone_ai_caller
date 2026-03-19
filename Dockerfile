@@ -18,6 +18,7 @@ WORKDIR /app
 COPY frontend ./frontend
 
 RUN cd /app/frontend && npx prisma generate
+RUN cd /app/frontend && npm run build
 RUN chmod +x /app/frontend/docker-entrypoint.sh
 
 EXPOSE 3000

@@ -72,26 +72,45 @@ export default function ShopPage() {
             </div>
           ) : null}
 
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-2">
-            {products.map((p, idx) => (
-              <motion.div
-                key={p.id}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45, delay: idx * 0.05 }}
-              >
-                <ProductCard
-                  product={p}
-                  onAddToCart={(productId) => {
-                    const prod = products.find((x) => x.id === productId);
-                    if (!prod) return;
-                    addItem(prod, 1);
-                  }}
-                  onBuyNow={(productId) => setBuyNowProductId(productId)}
-                />
-              </motion.div>
-            ))}
-          </div>
+          {loading || error ? null : products.length === 0 ? (
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35 }}
+              className="mt-8 rounded-3xl bg-slate-900/60 p-6 ring-1 ring-white/10 shadow-soft"
+            >
+              <div className="flex items-center gap-3">
+                <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-brand-600/20 ring-1 ring-brand-400/25">
+                  <AppIcon icon={Sparkles} size="md" strokeWidth={2.5} className="text-brand-200" />
+                </span>
+                <h2 className="text-lg font-extrabold text-white">Каталог пока пуст</h2>
+              </div>
+              <p className="mt-2 text-sm text-slate-300">
+                Товары будут добавлены через админку. Следите за обновлениями!
+              </p>
+            </motion.div>
+          ) : (
+            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-2">
+              {products.map((p, idx) => (
+                <motion.div
+                  key={p.id}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.45, delay: idx * 0.05 }}
+                >
+                  <ProductCard
+                    product={p}
+                    onAddToCart={(productId) => {
+                      const prod = products.find((x) => x.id === productId);
+                      if (!prod) return;
+                      addItem(prod, 1);
+                    }}
+                    onBuyNow={(productId) => setBuyNowProductId(productId)}
+                  />
+                </motion.div>
+              ))}
+            </div>
+          )}
 
           <OneClickOrderModal
             open={buyNowProductId !== null && !!buyNowProduct}

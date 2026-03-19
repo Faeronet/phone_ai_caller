@@ -10,6 +10,7 @@ import { QuantityStepper } from "@/components/ui/QuantityStepper";
 import { formatRub } from "@/lib/money";
 import { AppIcon } from "@/components/ui/AppIcon";
 import { CheckCircle2, Phone, User, Package } from "lucide-react";
+import { useToast } from "@/components/toast/ToastProvider";
 
 const phoneRegex = /^[0-9+()\\s-]{7,}$/;
 
@@ -38,6 +39,8 @@ export function OneClickOrderModal({
   const schema = baseSchema.extend({
     quantity: z.number().min(1, "Количество должно быть минимум 1")
   });
+
+  const { pushToast } = useToast();
 
   const [quantity, setQuantity] = React.useState(defaultQuantity);
   const [status, setStatus] = React.useState<"idle" | "loading" | "success" | "error">("idle");
@@ -89,6 +92,7 @@ export function OneClickOrderModal({
 
             const data = (await res.json()) as { orderId: number };
             setStatus("success");
+            pushToast("С вами скоро свяжутся для подтверждения заказа");
             onSuccess?.(data.orderId);
             // Leave success visible briefly.
             setTimeout(() => onClose(), 900);
@@ -219,6 +223,8 @@ export function CartCheckoutModal({
   const [status, setStatus] = React.useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
 
+  const { pushToast } = useToast();
+
   const { register, handleSubmit, reset, formState } = useForm<BaseValues>({
     resolver: zodResolver(schema),
     defaultValues: { customerName: "", phone: "" }
@@ -256,6 +262,7 @@ export function CartCheckoutModal({
 
             const data = (await res.json()) as { orderId: number };
             setStatus("success");
+            pushToast("С вами скоро свяжутся для подтверждения заказа");
             onSuccess?.(data.orderId);
             setTimeout(() => onClose(), 900);
           } catch (e) {

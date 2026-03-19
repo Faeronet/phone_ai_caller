@@ -19,6 +19,7 @@
 Пример `.env.example` расположен в корне проекта.
 
 ## Запуск
+Примечание: проект рассчитан и тестируется на сервере `Ubuntu 22.04.5 LTS` при использовании Docker Engine и Docker Compose (plugin).
 1. Соберите и запустите все сервисы:
    ```bash
    docker compose up --build
@@ -32,15 +33,16 @@
    - `http://localhost:8080/`
 4. Backend health:
    - `http://localhost:8081/healthz`
-5. PostgreSQL при необходимости:
+5. Загруженные изображения товаров:
+   - раздаются backend-ом под путями вида `http://localhost:8081/uploads/...`
+   - сохраняются в Docker volume `backend_uploads`, поэтому не пропадают при перезапуске
+6. PostgreSQL при необходимости:
    - `localhost:5432`
 
-## Инициализация схемы и seed
+## Инициализация схемы
 При старте контейнера `backend` выполняется:
 - создание таблиц `Product`, `Order`, `OrderItem` в PostgreSQL (`CREATE TABLE IF NOT EXISTS`, idempotent)
-- upsert 2 стартовых товаров:
-  - `Noir Velvet`
-  - `Amber Essence`
+- без автозаполнения товаров: каталог остается пустым, пока товары не будут добавлены вручную через админку
 
 ## Скрытая админка
 - В интерфейсе нет кнопки/ссылки на `/admin`.
@@ -58,5 +60,7 @@
 - `GET /api/admin/verify`
 - `GET /api/admin/orders`
 - `PATCH /api/admin/orders/:id/status`
-- `POST /api/admin/products`
+- `GET /api/admin/products` (список товаров)
+- `POST /api/admin/products` (multipart: `name`, `description`, `priceCents`, `image(file)`)
+- `DELETE /api/admin/products/:id`
 

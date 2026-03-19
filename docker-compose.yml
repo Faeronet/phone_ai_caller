@@ -23,12 +23,15 @@ services:
       ADMIN_SECRET_KEY: ${ADMIN_SECRET_KEY}
       BACKEND_PORT: ${BACKEND_PORT:-8081}
       ADMIN_COOKIE_NAME: ${ADMIN_COOKIE_NAME:-phone_ai_caller_admin}
+      UPLOAD_DIR: ${UPLOAD_DIR:-/app/uploads}
     ports:
       - "0.0.0.0:${BACKEND_PORT:-8081}:8081"
     depends_on:
       - postgres
     networks:
       - phone_ai_caller_net
+    volumes:
+      - backend_uploads:/app/uploads
     restart: unless-stopped
 
   postgres:
@@ -61,4 +64,5 @@ networks:
 
 volumes:
   postgres_data:
+  backend_uploads:
 

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
+import { ToastProvider } from "@/components/toast/ToastProvider";
 import { Roboto, Great_Vibes } from "next/font/google";
 
 const roboto = Roboto({
@@ -32,11 +33,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ru" className={`dark ${roboto.variable} ${greatVibes.variable}`}>
       <body className="font-sans">
-        <SiteHeader />
-        <main className="pt-16">
-          {children}
-          <SiteFooter />
-        </main>
+        <ToastProvider>
+          <SiteHeader />
+          <main className="pt-16">
+            {children}
+            <SiteFooter />
+          </main>
+        </ToastProvider>
       </body>
     </html>
   );

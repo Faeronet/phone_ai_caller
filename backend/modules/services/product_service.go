@@ -37,3 +37,10 @@ func (s ProductService) Create(ctx context.Context, name, description string, pr
 	return s.Repo.Create(ctx, name, description, priceCents, imageUrl)
 }
 
+func (s ProductService) DeleteByID(ctx context.Context, id int) (string, error) {
+	if id <= 0 {
+		return "", fmt.Errorf("invalid id")
+	}
+	return s.Repo.DeleteByID(ctx, id)
+}
+

@@ -6,7 +6,12 @@ import { Button } from "@/components/ui/Button";
 import { AppIcon } from "@/components/ui/AppIcon";
 import { ArrowRight, Bot, PhoneCall, Receipt, ShieldCheck, Sparkles, PackageCheck, ShoppingBag } from "lucide-react";
 
-const devs = ["Андрей", "Дмитрий", "Евгений", "Виктор"];
+const devs = [
+  { name: "Виктор", role: "PM" },
+  { name: "Евгений", role: "Team Lead" },
+  { name: "Андрей", role: "AI Engineer" },
+  { name: "Дмитрий", role: "AI Engineer" }
+];
 
 export default function HomePage() {
   return (
@@ -185,9 +190,9 @@ export default function HomePage() {
           </motion.h2>
 
           <div className="mt-6 grid gap-4 sm:grid-cols-4">
-            {devs.map((name, i) => (
+            {devs.map((d, i) => (
               <motion.div
-                key={name}
+                key={d.name}
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -195,15 +200,15 @@ export default function HomePage() {
                 className="rounded-3xl bg-slate-900/60 p-6 ring-1 ring-white/10 shadow-soft"
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-base font-bold text-white font-script">{name}</span>
-                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-white/5 ring-1 ring-white/10">
-                    <span className="text-brand-200 text-sm font-extrabold inline-flex items-center gap-1">
+                  <span className="text-base font-bold text-white">{d.name}</span>
+                  <span className="inline-flex items-center justify-center rounded-2xl bg-white/5 px-3 py-2 ring-1 ring-white/10">
+                    <span className="text-xs font-extrabold text-brand-200 inline-flex items-center gap-2">
                       <AppIcon icon={Sparkles} size="sm" strokeWidth={2.5} />
-                      AI
+                      {d.role}
                     </span>
                   </span>
                 </div>
-                <p className="mt-2 text-sm text-slate-300">Внесли вклад в продукт и UX</p>
+                <p className="mt-2 text-sm text-slate-300">Команда AI-направления</p>
               </motion.div>
             ))}
           </div>

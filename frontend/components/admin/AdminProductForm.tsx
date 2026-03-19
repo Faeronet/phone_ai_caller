@@ -20,7 +20,9 @@ const schema = z.object({
       const cents = rubToCentsFromInput(v);
       return cents !== null && cents > 0;
     }, "Цена должна быть больше 0"),
-  imageUrl: z.string().min(1, "Ссылка на изображение обязательна").url("Некорректный URL")
+  image: z
+    .any()
+    .refine((v) => v instanceof FileList && v.length > 0, "Изображение обязательно")
 });
 
 type Values = z.infer<typeof schema>;
@@ -29,11 +31,18 @@ export function AdminProductForm() {
   const router = useRouter();
   const [status, setStatus] = React.useState<"idle" | "loading" | "success" | "error">("idle");
   const [error, setError] = React.useState<string | null>(null);
+  const [previewUrl, setPreviewUrl] = React.useState<string | null>(null);
 
   const { register, handleSubmit, reset, formState } = useForm<Values>({
     resolver: zodResolver(schema),
-    defaultValues: { name: "", description: "", priceRub: "", imageUrl: "" }
+    defaultValues: { name: "", description: "", priceRub: "", image: new DataTransfer().files }
   });
+
+  React.useEffect(() => {
+    return () => {
+      if (previewUrl) URL.revokeObjectURL(previewUrl);
+    };
+  }, [previewUrl]);
 
   return (
     <div className="rounded-3xl bg-slate-900/60 p-6 ring-1 ring-white/10 shadow-soft">
@@ -54,15 +63,19 @@ export function AdminProductForm() {
             const priceCents = rubToCentsFromInput(values.priceRub);
             if (!priceCents) throw new Error("Некорректная цена");
 
+            const files = values.image as unknown as FileList;
+            const imageFile = files?.[0];
+            if (!imageFile) throw new Error("Изображение обязательно");
+
+            const formData = new FormData();
+            formData.append("name", values.name);
+            formData.append("description", values.description);
+            formData.append("priceCents", String(priceCents));
+            formData.append("image", imageFile);
+
             const res = await fetch("/api/admin/products", {
               method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                name: values.name,
-                description: values.description,
-                priceCents,
-                imageUrl: values.imageUrl
-              })
+              body: formData
             });
 
             if (!res.ok) {
@@ -71,6 +84,8 @@ export function AdminProductForm() {
             }
 
             reset();
+            if (previewUrl) URL.revokeObjectURL(previewUrl);
+            setPreviewUrl(null);
             setStatus("success");
             setTimeout(() => {
               setStatus("idle");
@@ -121,18 +136,30 @@ export function AdminProductForm() {
           </div>
 
           <div className="space-y-2">
-            <label className="block text-sm font-semibold text-slate-200">Image URL</label>
+            <label className="block text-sm font-semibold text-slate-200">Изображение</label>
             <input
-              className="h-11 w-full rounded-2xl bg-white/5 px-3 text-sm text-white outline-none ring-1 ring-white/10 placeholder:text-slate-500 focus:ring-brand-400/40"
-              placeholder="https://..."
-              {...register("imageUrl")}
+              type="file"
+              accept="image/*"
+              className="block w-full cursor-pointer rounded-2xl bg-white/5 px-3 py-2 text-sm text-white outline-none ring-1 ring-white/10 file:mr-4 file:rounded-2xl file:border-0 file:bg-brand-600/20 file:px-3 file:py-2 file:text-sm file:font-semibold file:text-brand-100 hover:file:bg-brand-600/30"
               disabled={status === "loading"}
+              {...register("image")}
+              onChange={(e) => {
+                const f = e.target.files?.[0];
+                if (!f) return;
+                if (previewUrl) URL.revokeObjectURL(previewUrl);
+                setPreviewUrl(URL.createObjectURL(f));
+              }}
             />
-            {formState.errors.imageUrl ? (
-              <p className="text-xs font-semibold text-red-300">{formState.errors.imageUrl.message}</p>
-            ) : null}
+            {formState.errors.image ? <p className="text-xs font-semibold text-red-300">{formState.errors.image.message as string}</p> : null}
           </div>
         </div>
+
+        {previewUrl ? (
+          <div className="mt-3 overflow-hidden rounded-3xl ring-1 ring-white/10 bg-white/5">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={previewUrl} alt="Preview" className="h-28 w-full object-cover" />
+          </div>
+        ) : null}
 
         {status === "success" ? (
           <div className="rounded-2xl bg-brand-600/10 p-3 text-sm font-semibold text-brand-100 ring-1 ring-brand-400/20">
