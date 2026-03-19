@@ -3,6 +3,7 @@ package handlers
 import (
 	"crypto/rand"
 	"encoding/json"
+	"errors"
 	"io"
 	"net/http"
 	"os"
@@ -14,6 +15,7 @@ import (
 	"phone-ai-caller-backend/modules/auth"
 	"phone-ai-caller-backend/modules/config"
 	"phone-ai-caller-backend/modules/models"
+	"phone-ai-caller-backend/modules/repositories"
 	"phone-ai-caller-backend/modules/services"
 
 	"github.com/go-chi/chi/v5"
@@ -155,6 +157,26 @@ func (h AdminHandler) UpdateOrderStatus(w http.ResponseWriter, r *http.Request) 
 
 	if err := h.OrderService.UpdateConfirmationStatus(r.Context(), id, req.ConfirmationStatus); err != nil {
 		_ = writeError(w, http.StatusBadRequest, err.Error())
+		return
+	}
+
+	_ = writeJSON(w, http.StatusOK, map[string]any{"ok": true})
+}
+
+// DELETE /api/admin/orders/:id
+func (h AdminHandler) DeleteOrder(w http.ResponseWriter, r *http.Request) {
+	id, err := strconv.Atoi(chi.URLParam(r, "id"))
+	if err != nil || id <= 0 {
+		_ = writeError(w, http.StatusBadRequest, "Invalid id")
+		return
+	}
+
+	if err := h.OrderService.DeleteOrder(r.Context(), id); err != nil {
+		if errors.Is(err, repositories.ErrOrderNotFound) {
+			_ = writeError(w, http.StatusNotFound, "Order not found")
+			return
+		}
+		_ = writeError(w, http.StatusInternalServerError, "Failed to delete order")
 		return
 	}
 

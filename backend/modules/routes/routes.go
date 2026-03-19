@@ -40,6 +40,7 @@ func NewRouter(cfg config.Config, productService services.ProductService, orderS
 				g.Get("/verify", adminH.Verify)
 				g.Get("/orders", adminH.ListOrders)
 				g.Patch("/orders/{id}/status", adminH.UpdateOrderStatus)
+				g.Delete("/orders/{id}", adminH.DeleteOrder)
 				g.Get("/products", adminH.ListProducts)
 				g.Post("/products", adminH.CreateProduct)
 				g.Delete("/products/{id}", adminH.DeleteProduct)

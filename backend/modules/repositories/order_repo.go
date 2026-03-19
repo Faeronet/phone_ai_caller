@@ -2,6 +2,7 @@ package repositories
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -9,6 +10,8 @@ import (
 
 	"phone-ai-caller-backend/modules/models"
 )
+
+var ErrOrderNotFound = errors.New("order not found")
 
 type CreateOrderItem struct {
 	ProductID int
@@ -210,6 +213,37 @@ func (r OrderRepository) UpdateConfirmationStatus(ctx context.Context, id int, s
 	affected := tag.RowsAffected()
 	if affected == 0 {
 		return fmt.Errorf("order not found")
+	}
+	return nil
+}
+
+func (r OrderRepository) DeleteByID(ctx context.Context, id int) error {
+	if id <= 0 {
+		return fmt.Errorf("invalid order id")
+	}
+
+	tx, err := r.Pool.Begin(ctx)
+	if err != nil {
+		return fmt.Errorf("begin tx: %w", err)
+	}
+	defer tx.Rollback(ctx)
+
+	// Защита от мусорных записей: сначала удаляем items, затем сам заказ.
+	if _, err := tx.Exec(ctx, `DELETE FROM "OrderItem" WHERE "orderId" = $1`, id); err != nil {
+		return fmt.Errorf("delete order items: %w", err)
+	}
+
+	tag, err := tx.Exec(ctx, `DELETE FROM "Order" WHERE id = $1`, id)
+	if err != nil {
+		return fmt.Errorf("delete order: %w", err)
+	}
+
+	if tag.RowsAffected() == 0 {
+		return ErrOrderNotFound
+	}
+
+	if err := tx.Commit(ctx); err != nil {
+		return fmt.Errorf("commit tx: %w", err)
 	}
 	return nil
 }

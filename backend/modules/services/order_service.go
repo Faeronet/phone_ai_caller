@@ -49,3 +49,10 @@ func (s OrderService) UpdateConfirmationStatus(ctx context.Context, id int, stat
 	return s.Repo.UpdateConfirmationStatus(ctx, id, status)
 }
 
+func (s OrderService) DeleteOrder(ctx context.Context, id int) error {
+	if id <= 0 {
+		return fmt.Errorf("invalid order id")
+	}
+	return s.Repo.DeleteByID(ctx, id)
+}
+
