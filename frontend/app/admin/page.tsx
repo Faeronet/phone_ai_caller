@@ -49,7 +49,7 @@ export default async function AdminPage() {
 
   return (
     <div className="relative">
-      <div className="mx-auto w-full max-w-[1400px] px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-[1460px] px-4 sm:px-6 lg:px-8">
         <div className="pt-10 pb-16 space-y-6">
           <div className="rounded-3xl bg-slate-900/60 p-6 ring-1 ring-white/10 shadow-soft">
             <h1 className="text-2xl font-extrabold text-white">Админка</h1>
@@ -58,7 +58,7 @@ export default async function AdminPage() {
             </p>
           </div>
 
-          <div className="grid items-start gap-5 xl:gap-6 lg:grid-cols-[minmax(0,2.2fr)_minmax(300px,1fr)]">
+          <div className="grid items-start gap-5 xl:gap-7 lg:grid-cols-[minmax(0,2.35fr)_minmax(320px,0.95fr)]">
             <section className="min-w-0 space-y-3">
               <div className="rounded-3xl bg-slate-900/60 p-5 ring-1 ring-white/10 shadow-soft">
                 <h2 className="text-lg font-extrabold text-white">Заказы</h2>

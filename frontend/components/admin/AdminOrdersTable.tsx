@@ -44,17 +44,17 @@ export function AdminOrdersTable({ orders }: { orders: OrderView[] }) {
     <>
       <div className="rounded-3xl bg-slate-900/60 ring-1 ring-white/10 shadow-soft">
         <div className="hidden lg:block">
-          <table className="w-full table-fixed text-left text-sm">
+          <table className="w-full table-auto text-left text-sm">
             <thead>
               <tr className="border-b border-white/10">
-                <th className="px-4 py-3 w-[86px] font-semibold text-slate-300">ID</th>
-                <th className="px-4 py-3 w-[150px] font-semibold text-slate-300">Имя</th>
+                <th className="px-4 py-3 w-[88px] font-semibold text-slate-300">ID</th>
+                <th className="px-4 py-3 w-[160px] font-semibold text-slate-300">Имя</th>
                 <th className="px-4 py-3 w-[150px] font-semibold text-slate-300">Телефон</th>
                 <th className="px-4 py-3 font-semibold text-slate-300">Товары</th>
                 <th className="px-4 py-3 w-[90px] font-semibold text-slate-300">Кол-во</th>
                 <th className="px-4 py-3 w-[120px] font-semibold text-slate-300">Итого</th>
-                <th className="px-4 py-3 w-[220px] font-semibold text-slate-300">Статус</th>
-                <th className="px-4 py-3 w-[170px] font-semibold text-slate-300">Дата</th>
+                <th className="px-4 py-3 w-[210px] font-semibold text-slate-300">Статус</th>
+                <th className="px-4 py-3 w-[160px] font-semibold text-slate-300">Дата</th>
                 <th className="px-4 py-3 w-[132px] font-semibold text-slate-300">Удалить</th>
               </tr>
             </thead>
@@ -67,9 +67,15 @@ export function AdminOrdersTable({ orders }: { orders: OrderView[] }) {
                     <td className="px-4 py-3 text-slate-200">
                       <div className="font-semibold text-white">#{o.id}</div>
                     </td>
-                    <td className="px-4 py-3 text-slate-200 break-words">{o.customerName}</td>
-                    <td className="px-4 py-3 text-slate-200 break-all">{o.phone}</td>
-                    <td className="px-4 py-3 text-slate-200 break-words">{itemsText}</td>
+                    <td className="px-4 py-3 text-slate-200 align-top">
+                      <div className="whitespace-normal break-words">{o.customerName}</div>
+                    </td>
+                    <td className="px-4 py-3 text-slate-200 whitespace-nowrap align-top">{o.phone}</td>
+                    <td className="px-4 py-3 text-slate-200 align-top">
+                      <div className="max-w-none whitespace-normal break-normal leading-relaxed">
+                        {itemsText}
+                      </div>
+                    </td>
                     <td className="px-4 py-3 text-slate-200">{totalQty}</td>
                     <td className="px-4 py-3 font-extrabold text-white">{formatByn(o.totalAmount)}</td>
                     <td className="px-4 py-3">
@@ -101,7 +107,7 @@ export function AdminOrdersTable({ orders }: { orders: OrderView[] }) {
                             }
                           }}
                           disabled={updatingId === o.id}
-                          className="h-10 min-w-0 flex-1 rounded-2xl bg-white/5 px-3 text-sm text-white outline-none ring-1 ring-white/10 focus:ring-brand-400/40 disabled:opacity-70"
+                          className="h-10 w-full min-w-[150px] rounded-2xl bg-white/5 px-3 text-sm text-white outline-none ring-1 ring-white/10 focus:ring-brand-400/40 disabled:opacity-70"
                         >
                           {Object.keys(statusLabels).map((s) => (
                             <option key={s} value={s}>
@@ -111,7 +117,9 @@ export function AdminOrdersTable({ orders }: { orders: OrderView[] }) {
                         </select>
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-slate-200">{new Date(o.createdAt).toLocaleString("ru-RU")}</td>
+                    <td className="px-4 py-3 text-slate-200">
+                      <div className="whitespace-nowrap">{new Date(o.createdAt).toLocaleString("ru-RU")}</div>
+                    </td>
                     <td className="px-4 py-3">
                       <Button
                         variant="secondary"
