@@ -1,5 +1,4 @@
 import { cookies } from "next/headers";
-import { Container } from "@/components/layout/Container";
 import { AdminUnlockForm } from "@/components/admin/AdminUnlockForm";
 import { AdminOrdersTable } from "@/components/admin/AdminOrdersTable";
 import { AdminProductForm } from "@/components/admin/AdminProductForm";
@@ -24,11 +23,11 @@ export default async function AdminPage() {
   if (!authorized) {
     return (
       <div className="relative">
-        <Container>
+        <div className="mx-auto w-full max-w-[760px] px-4 sm:px-6 lg:px-8">
           <div className="pt-10 pb-16">
             <AdminUnlockForm />
           </div>
-        </Container>
+        </div>
       </div>
     );
   }
@@ -50,7 +49,7 @@ export default async function AdminPage() {
 
   return (
     <div className="relative">
-      <Container>
+      <div className="mx-auto w-full max-w-[1400px] px-4 sm:px-6 lg:px-8">
         <div className="pt-10 pb-16 space-y-6">
           <div className="rounded-3xl bg-slate-900/60 p-6 ring-1 ring-white/10 shadow-soft">
             <h1 className="text-2xl font-extrabold text-white">Админка</h1>
@@ -59,7 +58,7 @@ export default async function AdminPage() {
             </p>
           </div>
 
-          <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,390px)]">
+          <div className="grid items-start gap-5 xl:gap-6 lg:grid-cols-[minmax(0,2.2fr)_minmax(300px,1fr)]">
             <section className="min-w-0 space-y-3">
               <div className="rounded-3xl bg-slate-900/60 p-5 ring-1 ring-white/10 shadow-soft">
                 <h2 className="text-lg font-extrabold text-white">Заказы</h2>
@@ -67,7 +66,13 @@ export default async function AdminPage() {
                   {orders.length ? `Найдено: ${orders.length}` : "Пока нет заказов"}
                 </p>
               </div>
-              {orders.length ? <AdminOrdersTable orders={orders as any} /> : null}
+              {orders.length ? (
+                <AdminOrdersTable orders={orders as any} />
+              ) : (
+                <div className="rounded-3xl bg-slate-900/60 p-5 ring-1 ring-white/10 shadow-soft text-sm text-slate-300">
+                  Заказов пока нет.
+                </div>
+              )}
             </section>
 
             <aside className="min-w-0 space-y-5">
@@ -76,7 +81,7 @@ export default async function AdminPage() {
             </aside>
           </div>
         </div>
-      </Container>
+      </div>
     </div>
   );
 }
