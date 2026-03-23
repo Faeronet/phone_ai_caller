@@ -6,7 +6,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/Button";
 import { AppIcon } from "@/components/ui/AppIcon";
-import { Eye, EyeOff, KeyRound, Lock } from "lucide-react";
+import { Eye, EyeSlash, Key, Lock } from "@phosphor-icons/react";
 
 const schema = z.object({
   key: z.string().min(1, "Ключ обязателен")
@@ -68,7 +68,7 @@ export function AdminUnlockForm({ onUnlocked }: { onUnlocked?: () => void }) {
           <div className="space-y-2">
             <label className="block text-sm font-semibold text-slate-200" htmlFor="key">
               <span className="inline-flex items-center gap-2">
-                <AppIcon icon={KeyRound} size="sm" strokeWidth={2.5} className="text-brand-200" />
+                <AppIcon icon={Key} size="sm" strokeWidth={2.5} className="text-brand-200" />
                 Secret key
               </span>
             </label>
@@ -88,7 +88,7 @@ export function AdminUnlockForm({ onUnlocked }: { onUnlocked?: () => void }) {
                 onClick={() => setShowKey((v) => !v)}
                 disabled={loading}
               >
-                <AppIcon icon={showKey ? EyeOff : Eye} size="sm" />
+                <AppIcon icon={showKey ? EyeSlash : Eye} size="sm" />
               </button>
             </div>
             {formState.errors.key ? <p className="text-xs font-semibold text-red-300">{formState.errors.key.message}</p> : null}

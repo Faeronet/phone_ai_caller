@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/Button";
 import { useRouter } from "next/navigation";
 import { rubToCentsFromInput } from "@/lib/money";
 import { AppIcon } from "@/components/ui/AppIcon";
-import { Plus, Sparkles } from "lucide-react";
+import { Plus, Sparkle } from "@phosphor-icons/react";
 
 const schema = z.object({
   name: z.string().min(1, "Название обязательно"),
@@ -164,7 +164,7 @@ export function AdminProductForm() {
         {status === "success" ? (
           <div className="rounded-2xl bg-brand-600/10 p-3 text-sm font-semibold text-brand-100 ring-1 ring-brand-400/20">
             <span className="inline-flex items-center gap-2">
-              <AppIcon icon={Sparkles} size="sm" strokeWidth={2.5} className="text-brand-200" />
+              <AppIcon icon={Sparkle} size="sm" strokeWidth={2.5} className="text-brand-200" />
               Товар создан!
             </span>
           </div>

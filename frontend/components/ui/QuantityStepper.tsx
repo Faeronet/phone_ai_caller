@@ -3,7 +3,7 @@
 import * as React from "react";
 import { twMerge } from "tailwind-merge";
 import { Button } from "./Button";
-import { Minus, Plus } from "lucide-react";
+import { Minus, Plus } from "@phosphor-icons/react";
 import { AppIcon } from "./AppIcon";
 
 export function QuantityStepper({

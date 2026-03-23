@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Trash2 } from "lucide-react";
+import { TrashSimple } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/Button";
 import { Modal } from "@/components/ui/Modal";
 import { AppIcon } from "@/components/ui/AppIcon";
@@ -84,7 +84,7 @@ export function AdminProductsList() {
                 disabled={deleteBusyId === p.id}
                 className="gap-2 rounded-2xl bg-white/5 hover:bg-white/10"
               >
-                <AppIcon icon={Trash2} size="sm" strokeWidth={2.5} />
+                <AppIcon icon={TrashSimple} size="sm" strokeWidth={2.5} />
                 Удалить
               </Button>
             </div>

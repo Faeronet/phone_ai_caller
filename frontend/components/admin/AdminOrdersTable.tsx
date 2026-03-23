@@ -4,7 +4,7 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 import { formatByn } from "@/lib/money";
 import { AppIcon } from "@/components/ui/AppIcon";
-import { BadgeCheck, CircleDashed, Trash2 } from "lucide-react";
+import { CheckCircle, CircleDashed, TrashSimple } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/Button";
 import { Modal } from "@/components/ui/Modal";
 import { useToast } from "@/components/toast/ToastProvider";
@@ -89,7 +89,7 @@ export function AdminOrdersTable({ orders }: { orders: OrderView[] }) {
                       <div className="flex items-center gap-2">
                         <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white/5 ring-1 ring-white/10">
                           {o.confirmationStatus === "подтверждено" ? (
-                            <AppIcon icon={BadgeCheck} size="sm" strokeWidth={2.5} className="text-brand-200" />
+                            <AppIcon icon={CheckCircle} size="sm" strokeWidth={2.5} className="text-brand-200" />
                           ) : (
                             <AppIcon icon={CircleDashed} size="sm" strokeWidth={2.5} className="text-brand-200" />
                           )}
@@ -138,7 +138,7 @@ export function AdminOrdersTable({ orders }: { orders: OrderView[] }) {
                         disabled={deleteBusyId === o.id}
                         className="gap-1.5 rounded-xl bg-white/5 px-2.5 hover:bg-white/10"
                       >
-                        <AppIcon icon={Trash2} size="sm" strokeWidth={2.5} />
+                        <AppIcon icon={TrashSimple} size="sm" strokeWidth={2.5} />
                         Удалить
                       </Button>
                     </td>
@@ -174,7 +174,7 @@ export function AdminOrdersTable({ orders }: { orders: OrderView[] }) {
                   <div className="flex min-w-0 flex-1 items-center gap-2">
                     <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-white/5 ring-1 ring-white/10">
                       {o.confirmationStatus === "подтверждено" ? (
-                        <AppIcon icon={BadgeCheck} size="sm" strokeWidth={2.5} className="text-brand-200" />
+                        <AppIcon icon={CheckCircle} size="sm" strokeWidth={2.5} className="text-brand-200" />
                       ) : (
                         <AppIcon icon={CircleDashed} size="sm" strokeWidth={2.5} className="text-brand-200" />
                       )}
@@ -219,7 +219,7 @@ export function AdminOrdersTable({ orders }: { orders: OrderView[] }) {
                     disabled={deleteBusyId === o.id}
                     className="gap-2 rounded-2xl bg-white/5 hover:bg-white/10 sm:w-auto"
                   >
-                    <AppIcon icon={Trash2} size="sm" strokeWidth={2.5} />
+                      <AppIcon icon={TrashSimple} size="sm" strokeWidth={2.5} />
                     Удалить
                   </Button>
                 </div>

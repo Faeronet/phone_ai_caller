@@ -6,7 +6,7 @@ import { QuantityStepper } from "@/components/ui/QuantityStepper";
 import { Button } from "@/components/ui/Button";
 import { formatByn } from "@/lib/money";
 import { twMerge } from "tailwind-merge";
-import { Trash2 } from "lucide-react";
+import { TrashSimple } from "@phosphor-icons/react";
 import { AppIcon } from "@/components/ui/AppIcon";
 
 export function CartItemCard({
@@ -74,7 +74,7 @@ export function CartItemCard({
       <div className="mt-4 flex justify-end">
         <Button variant="ghost" size="sm" onClick={onRemove} type="button" className="rounded-2xl ring-1 ring-white/10 hover:ring-brand-400/30">
           <span className="inline-flex items-center gap-2">
-            <AppIcon icon={Trash2} size="sm" strokeWidth={2.5} />
+            <AppIcon icon={TrashSimple} size="sm" strokeWidth={2.5} />
             Удалить
           </span>
         </Button>

@@ -9,7 +9,7 @@ import { CartCheckoutModal } from "@/components/orders/OrderCheckoutModal";
 import { Button } from "@/components/ui/Button";
 import { formatByn } from "@/lib/money";
 import { AppIcon } from "@/components/ui/AppIcon";
-import { ArrowRight, CheckCircle2, Receipt, ShoppingCart, ShoppingBag } from "lucide-react";
+import { ArrowRight, CheckCircle, Receipt, ShoppingCart, ShoppingBag } from "@phosphor-icons/react";
 
 export default function CartPage() {
   const items = useCartStore((s) => s.items);
@@ -137,7 +137,7 @@ export default function CartPage() {
                 >
                   <span className="inline-flex items-center gap-2">
                     Оформить заказ
-                    <AppIcon icon={CheckCircle2} size="sm" strokeWidth={2.5} />
+                    <AppIcon icon={CheckCircle} size="sm" strokeWidth={2.5} />
                   </span>
                 </button>
 

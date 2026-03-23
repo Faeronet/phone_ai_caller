@@ -7,7 +7,7 @@ import { twMerge } from "tailwind-merge";
 import { Button } from "../ui/Button";
 import { useCartTotals } from "@/store/cartStore";
 import { AppIcon } from "@/components/ui/AppIcon";
-import { PhoneCall, ShoppingBag, ShoppingCart } from "lucide-react";
+import { PhoneCall, ShoppingBag, ShoppingCart } from "@phosphor-icons/react";
 
 function CartCountPill({ count }: { count: number }) {
   if (count <= 0) return null;

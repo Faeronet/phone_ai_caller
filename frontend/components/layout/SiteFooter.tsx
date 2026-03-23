@@ -1,6 +1,6 @@
 "use client";
 import { AppIcon } from "@/components/ui/AppIcon";
-import { PhoneCall, Sparkles } from "lucide-react";
+import { PhoneCall, Sparkle } from "@phosphor-icons/react";
 
 export function SiteFooter() {
   return (
@@ -18,7 +18,7 @@ export function SiteFooter() {
                 <div className="truncate text-sm font-extrabold text-white">Виктор</div>
                 <div className="text-xs font-semibold text-slate-300">PM, AI Engineer</div>
               </div>
-              <AppIcon icon={Sparkles} size="sm" strokeWidth={2.5} className="mt-1 text-brand-200 shrink-0" />
+              <AppIcon icon={Sparkle} size="sm" strokeWidth={2.5} className="mt-1 text-brand-200 shrink-0" />
             </div>
 
             <div className="flex items-start justify-between gap-4 rounded-2xl bg-white/5 p-3 ring-1 ring-white/10">

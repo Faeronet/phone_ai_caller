@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { PhoneCall, Sparkles } from "lucide-react";
+import { PhoneCall, Sparkle } from "@phosphor-icons/react";
 import { AppIcon } from "@/components/ui/AppIcon";
 
 type Toast = {
@@ -60,7 +60,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
                 <div className="min-w-0">
                   <div className="flex items-center gap-2">
                     <span className="font-bold text-white">Подтверждение</span>
-                    <AppIcon icon={Sparkles} size="sm" strokeWidth={2.5} className="text-brand-200" />
+                    <AppIcon icon={Sparkle} size="sm" strokeWidth={2.5} className="text-brand-200" />
                   </div>
                   <p className="mt-1 text-sm text-slate-300">{t.message}</p>
                 </div>

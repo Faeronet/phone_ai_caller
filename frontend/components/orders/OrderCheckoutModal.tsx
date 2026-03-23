@@ -9,7 +9,7 @@ import { Modal } from "@/components/ui/Modal";
 import { QuantityStepper } from "@/components/ui/QuantityStepper";
 import { formatByn } from "@/lib/money";
 import { AppIcon } from "@/components/ui/AppIcon";
-import { CheckCircle2, Phone, User, Package } from "lucide-react";
+import { CheckCircle, Phone, User, Package } from "@phosphor-icons/react";
 import { useToast } from "@/components/toast/ToastProvider";
 
 import { BY_PHONE_ERROR_MESSAGE, normalizeBelarusMobilePhone, isValidBelarusMobilePhone } from "@/lib/byPhone";
@@ -110,7 +110,7 @@ export function OneClickOrderModal({
           <div className="rounded-3xl bg-white/5 p-5 ring-1 ring-white/10">
             <div className="flex items-start gap-3">
               <div className="mt-0.5 flex h-10 w-10 items-center justify-center rounded-2xl bg-brand-600/25 ring-1 ring-brand-400/30">
-                <AppIcon icon={CheckCircle2} size="md" strokeWidth={2.5} className="text-white" />
+                <AppIcon icon={CheckCircle} size="md" strokeWidth={2.5} className="text-white" />
               </div>
               <div>
                 <h3 className="text-base font-bold text-white">Заказ оформлен</h3>
@@ -279,7 +279,7 @@ export function CartCheckoutModal({
           <div className="rounded-3xl bg-white/5 p-5 ring-1 ring-white/10">
             <div className="flex items-start gap-3">
               <div className="mt-0.5 flex h-10 w-10 items-center justify-center rounded-2xl bg-brand-600/25 ring-1 ring-brand-400/30">
-                <AppIcon icon={CheckCircle2} size="md" strokeWidth={2.5} className="text-white" />
+                <AppIcon icon={CheckCircle} size="md" strokeWidth={2.5} className="text-white" />
               </div>
               <div>
                 <h3 className="text-base font-bold text-white">Заказ оформлен</h3>

@@ -4,7 +4,7 @@ import * as React from "react";
 import { Button } from "./Button";
 import { Badge } from "./Badge";
 import { AppIcon } from "./AppIcon";
-import { ArrowRight, PhoneCall, ShieldCheck, ShoppingCart, Sparkles } from "lucide-react";
+import { ArrowRight, PhoneCall, ShieldCheck, ShoppingCart, Sparkle } from "@phosphor-icons/react";
 import { formatByn } from "@/lib/money";
 
 export type ProductView = {
@@ -78,7 +78,7 @@ export function ProductCard({
             className="w-full"
           >
             <span className="inline-flex items-center justify-center gap-2">
-              <AppIcon icon={Sparkles} size="sm" strokeWidth={2.5} />
+              <AppIcon icon={Sparkle} size="sm" strokeWidth={2.5} />
               Купить в 1 клик
               <AppIcon icon={ArrowRight} size="sm" />
             </span>

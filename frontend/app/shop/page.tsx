@@ -7,7 +7,7 @@ import { OneClickOrderModal } from "@/components/orders/OrderCheckoutModal";
 import { Container } from "@/components/layout/Container";
 import { motion } from "framer-motion";
 import { AppIcon } from "@/components/ui/AppIcon";
-import { Sparkles } from "lucide-react";
+import { Sparkle } from "@phosphor-icons/react";
 
 export default function ShopPage() {
   const addItem = useCartStore((s) => s.addItem);
@@ -55,7 +55,7 @@ export default function ShopPage() {
           >
             <h1 className="flex items-center gap-3 text-2xl font-extrabold text-white">
               <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-brand-600/20 ring-1 ring-brand-400/25">
-                <AppIcon icon={Sparkles} size="md" strokeWidth={2.5} className="text-brand-200" />
+                <AppIcon icon={Sparkle} size="md" strokeWidth={2.5} className="text-brand-200" />
               </span>
               Магазин парфюмов
             </h1>
@@ -81,7 +81,7 @@ export default function ShopPage() {
             >
               <div className="flex items-center gap-3">
                 <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-brand-600/20 ring-1 ring-brand-400/25">
-                  <AppIcon icon={Sparkles} size="md" strokeWidth={2.5} className="text-brand-200" />
+                  <AppIcon icon={Sparkle} size="md" strokeWidth={2.5} className="text-brand-200" />
                 </span>
                 <h2 className="text-lg font-extrabold text-white">Каталог пока пуст</h2>
               </div>

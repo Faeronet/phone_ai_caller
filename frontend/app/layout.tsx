@@ -24,8 +24,8 @@ export const metadata: Metadata = {
   description: "Демо AI-обзвонщика: после заказа звонит клиенту и подтверждает покупку.",
   icons: {
     icon: "/icon.svg",
-    shortcut: "/favicon.ico",
-    apple: "/apple-icon.png"
+    shortcut: "/favicon.svg",
+    apple: "/apple-icon.svg"
   }
 };
 

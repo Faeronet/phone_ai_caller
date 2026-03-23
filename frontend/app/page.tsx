@@ -4,7 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { AppIcon } from "@/components/ui/AppIcon";
-import { ArrowRight, Bot, PhoneCall, Receipt, ShieldCheck, Sparkles, PackageCheck, ShoppingBag } from "lucide-react";
+import { ArrowRight, Package, PhoneCall, Receipt, Robot, ShieldCheck, Sparkle, ShoppingBag } from "@phosphor-icons/react";
 
 const devs = [
   { name: "Виктор", rolesText: "PM, AI Engineer" },
@@ -31,7 +31,7 @@ export default function HomePage() {
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
             <div className="inline-flex items-center gap-2 rounded-full bg-white/5 px-4 py-2 ring-1 ring-white/10">
-              <AppIcon icon={Sparkles} size="sm" strokeWidth={2.5} className="text-brand-200" />
+              <AppIcon icon={Sparkle} size="sm" strokeWidth={2.5} className="text-brand-200" />
               <span className="text-sm font-semibold text-slate-200">Демо AI-обзвонщика для e-commerce</span>
             </div>
 
@@ -64,7 +64,7 @@ export default function HomePage() {
             {[
               { title: "Автоматизация подтверждения", desc: "Меньше ручной работы — больше точности.", icon: ShieldCheck },
               { title: "Быстрая обработка", desc: "Снижаем время от заказа до подтверждения.", icon: Receipt },
-              { title: "Демо интеграции AI", desc: "Показывает полный цикл e-commerce.", icon: Bot }
+              { title: "Демо интеграции AI", desc: "Показывает полный цикл e-commerce.", icon: Robot }
             ].map((c, idx) => (
               <motion.div
                 key={c.title}
@@ -100,7 +100,7 @@ export default function HomePage() {
 
           <div className="mt-6 grid gap-4 sm:grid-cols-4">
             {[
-              { step: "Покупатель оформляет заказ", icon: PackageCheck },
+              { step: "Покупатель оформляет заказ", icon: Package },
               { step: "Заказ сохраняется в системе", icon: Receipt },
               { step: "AI-обзвонщик связывается с клиентом", icon: PhoneCall },
               { step: "Клиент подтверждает заказ", icon: ShieldCheck }
@@ -147,9 +147,9 @@ export default function HomePage() {
               {
                 title: "Автоматизация подтверждения заказов",
                 desc: "AI звонит клиентам и помогает подтвердить заказ в нужный момент.",
-                icon: Bot
+                icon: Robot
               },
-              { title: "Ускорение обработки заявок", desc: "Сокращаем время реакции и снижаем количество пропусков.", icon: Sparkles },
+              { title: "Ускорение обработки заявок", desc: "Сокращаем время реакции и снижаем количество пропусков.", icon: Sparkle },
               { title: "Демонстрация интеграции AI и e-commerce", desc: "Показываем полный путь данных: UI → API → PostgreSQL → admin.", icon: ShieldCheck }
             ].map((p, idx) => (
               <motion.div
@@ -203,7 +203,7 @@ export default function HomePage() {
                   <span className="text-base font-bold text-white">{d.name}</span>
                   <span className="inline-flex items-center justify-center rounded-2xl bg-white/5 px-3 py-2 ring-1 ring-white/10">
                     <span className="text-xs font-extrabold text-brand-200 inline-flex items-center gap-2">
-                      <AppIcon icon={Sparkles} size="sm" strokeWidth={2.5} />
+                      <AppIcon icon={Sparkle} size="sm" strokeWidth={2.5} />
                       {d.rolesText}
                     </span>
                   </span>
